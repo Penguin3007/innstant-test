@@ -14,6 +14,6 @@ class DestinationController extends Controller
         $destination = Destination::find($id);
 
         $haversine = "6371 * acos( cos( radians($destination->lat) ) * cos( radians(lat) ) * cos( radians(lon) - radians($destination->lon)) + sin(radians($destination->lat)) * sin(radians(lat)) )";
-        return DB::table('destinations')->selectRaw("id, name, lat, lon, $haversine AS distance")->whereRaw("$haversine < ?", [$request->get('radius')])->orderBy('distance')->get();
+        return DB::table('destinations')->selectRaw("id, name, lat, lon, $haversine AS distance")->whereRaw("$haversine < ?", [$request->get('radius')])->orderBy('distance', 'asc')->get();
     }
 }
